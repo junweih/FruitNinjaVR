@@ -18,7 +18,7 @@ public class SpawnFruits : MonoBehaviour
             GameObject go = Instantiate(fruits[Random.Range(0, fruits.Length)]);
             Rigidbody tmp = go.GetComponent<Rigidbody>();
 
-            tmp.velocity = new Vector3(0f, 5f, .5f);
+            tmp.velocity = new Vector3(0f, 5f, 2.5f);
             tmp.angularVelocity = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
             tmp.useGravity = true;
 
