@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnFruits : MonoBehaviour
+public class GlobalLogic : MonoBehaviour
 {
     public GameObject[] fruits;
+    public int score;
+    public TextMesh scoreUI;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Spawn());
+        score = 0;
+        scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
+    }
+
+    private void Update()
+    {
+        scoreUI.text = "Score : " + score.ToString();
     }
 
     IEnumerator Spawn()
@@ -27,6 +36,15 @@ public class SpawnFruits : MonoBehaviour
             go.transform.position = pos;
 
             yield return new WaitForSeconds(1f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject tmp = other.gameObject;
+        if (tmp.CompareTag("fruitPieces") || tmp.CompareTag("fruit"))
+        {
+            tmp.GetComponent<DestroyFruit>().died = true;
         }
     }
 }

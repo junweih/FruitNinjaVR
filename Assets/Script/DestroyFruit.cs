@@ -5,11 +5,23 @@ using UnityEngine;
 public class DestroyFruit : MonoBehaviour
 {
     // Update is called once per frame
+    private float t;
+    public bool died;
+    private void Start()
+    {
+        t = 2.0f;
+        died = false;
+    }
+
     void Update()
     {
-        if(transform.position.y < 0.5f)
+        if(died)
         {
-            Destroy(this.gameObject);
+            t -= Time.deltaTime;
+            if(t < 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
