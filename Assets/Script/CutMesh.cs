@@ -16,9 +16,10 @@ public class CutMesh : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         GameObject victim = collision.collider.gameObject;
-        victim.GetComponent<cutSound>().playClip();
+        
         if (victim.CompareTag("fruit"))
         {
+            victim.GetComponent<cutSound>().playClip();
             DestroyFruit df = victim.GetComponent<DestroyFruit>();
             if (!df.died)
             {
