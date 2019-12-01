@@ -27,13 +27,25 @@ public class GlobalLogic : MonoBehaviour
             GameObject go = Instantiate(fruits[Random.Range(0, fruits.Length)]);
             Rigidbody tmp = go.GetComponent<Rigidbody>();
 
-            tmp.velocity = new Vector3(0f, 5f, 2.5f);
-            tmp.angularVelocity = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
-            tmp.useGravity = true;
-
             Vector3 pos = transform.position;
-            pos.x += Random.Range(-1f, 1f);
+            float rng = Random.Range(-3.14f, 3.14f);
+            pos.x += Mathf.Sin(rng) * 8f;
+            pos.z += Mathf.Cos(rng) * 8f;
+            pos.y += Random.Range(1.3f, 1.6f);
             go.transform.position = pos;
+
+            Vector3 target = transform.position;
+            rng = Random.Range(-3.14f, 3.14f);
+            target.x += Mathf.Sin(rng) * 0.5f;
+            target.z += Mathf.Cos(rng) * 0.5f;
+
+            Vector3 vel = target - pos;
+            vel.y = 0f;
+            vel = vel.normalized * 2.2f;
+            vel.y = 1.0f;
+            tmp.velocity = vel;
+            tmp.angularVelocity = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+            tmp.useGravity = false;
 
             yield return new WaitForSeconds(1f);
         }

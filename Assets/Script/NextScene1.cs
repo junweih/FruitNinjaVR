@@ -7,11 +7,11 @@ public class NextScene1 : MonoBehaviour
 {
     // Start is called before the first frame update
     public float t;
-    public bool enabled;
+    public bool enable;
     void Start()
     {
         t = 1f;
-        enabled = false;
+        enable = false;
         Rigidbody tmp = GetComponent<Rigidbody>();
         tmp.angularVelocity = new Vector3(0f, 1.5f, 0f);
     }
@@ -19,7 +19,7 @@ public class NextScene1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enabled)
+        if(enable)
         {
             t -= Time.deltaTime;
             if(t < 0)
@@ -31,6 +31,6 @@ public class NextScene1 : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        enabled = true;
+        enable = true;
     }
 }

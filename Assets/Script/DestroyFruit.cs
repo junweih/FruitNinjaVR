@@ -24,4 +24,10 @@ public class DestroyFruit : MonoBehaviour
             }
         }
     }
+
+    void FixedUpdate()
+    {
+        Vector3 gravity = -0.6f * Vector3.up;
+        GetComponent<Rigidbody>().AddForce(gravity, ForceMode.Acceleration);
+    }
 }
