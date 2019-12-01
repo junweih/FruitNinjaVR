@@ -34,7 +34,7 @@ public class GlobalLogic : MonoBehaviour
             Vector3 pos = transform.position;
             pos.x += Random.Range(-1f, 1f);
             go.transform.position = pos;
-
+            go.GetComponent<AudioSource>().Play();
             yield return new WaitForSeconds(1f);
         }
     }

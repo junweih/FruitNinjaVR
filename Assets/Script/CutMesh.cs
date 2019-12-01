@@ -13,6 +13,7 @@ public class CutMesh : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         GameObject victim = collision.collider.gameObject;
+        victim.GetComponent<cutSound>().playClip();
         if (victim.CompareTag("fruit"))
         {
             global.score += 10;

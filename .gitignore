@@ -19,3 +19,7 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+/.vs/FruitNinjaVR/v16/Server/sqlite3/db.lock
+/.vs/FruitNinjaVR/v16/Server/sqlite3/storage.ide
+/.vs/FruitNinjaVR/v16/Server/sqlite3/storage.ide-shm
+/.vs/FruitNinjaVR/v16/Server/sqlite3/storage.ide-wal
