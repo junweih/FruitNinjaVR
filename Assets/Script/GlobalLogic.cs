@@ -1,23 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GlobalLogic : MonoBehaviour
 {
     public GameObject[] fruits;
     public int score;
     public TextMesh scoreUI;
+    public int health;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Spawn());
         score = 0;
+        health = 3;
         scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
     }
 
     private void Update()
     {
         scoreUI.text = "Score : " + score.ToString();
+        if (health < 0)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     IEnumerator Spawn()
@@ -47,6 +54,11 @@ public class GlobalLogic : MonoBehaviour
             tmp.angularVelocity = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
             tmp.useGravity = false;
 
+            if(go.GetComponent<DestroyFruit>())
+            {
+                go.GetComponent<DestroyFruit>().useGravity = true;
+            }
+
             yield return new WaitForSeconds(1f);
         }
     }
@@ -57,6 +69,9 @@ public class GlobalLogic : MonoBehaviour
         if (tmp.CompareTag("fruitPieces") || tmp.CompareTag("fruit"))
         {
             tmp.GetComponent<DestroyFruit>().died = true;
+        } else if (tmp.CompareTag("bomb"))
+        {
+            tmp.GetComponent<BombScript>().died = true;
         }
     }
 }

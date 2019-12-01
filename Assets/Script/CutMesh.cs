@@ -28,7 +28,14 @@ public class CutMesh : MonoBehaviour {
                 }
             }
         }
-            
+
+        if (victim.CompareTag("bomb"))
+        {
+            global.health--;
+            Destroy(victim);
+            return;
+        }
+
         GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
 
         if (!pieces[0].GetComponent<Rigidbody>())
@@ -40,7 +47,8 @@ public class CutMesh : MonoBehaviour {
 
         if (!pieces[0].GetComponent<DestroyFruit>())
         {
-            pieces[0].AddComponent<DestroyFruit>();
+            DestroyFruit df = pieces[0].AddComponent<DestroyFruit>();
+            df.useGravity = true;
         }
 
         if (!pieces[1].GetComponent<Rigidbody>())
@@ -52,7 +60,8 @@ public class CutMesh : MonoBehaviour {
 
         if (!pieces[1].GetComponent<DestroyFruit>())
         {
-            pieces[1].AddComponent<DestroyFruit>();
+            DestroyFruit df = pieces[1].AddComponent<DestroyFruit>();
+            df.useGravity = true;
         }
 
         pieces[0].tag = "fruitPieces";
