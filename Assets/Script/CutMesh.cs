@@ -7,7 +7,10 @@ public class CutMesh : MonoBehaviour {
 	public Material capMaterial;
     private GlobalLogic global;
 	void Start () {
-        global = (GameObject.Find("Global")).GetComponent<GlobalLogic>();
+        GameObject tmp = GameObject.Find("Global");
+        if (tmp) {
+            global = tmp.GetComponent<GlobalLogic>();
+        }
 	}
 
     void OnCollisionEnter(Collision collision)
@@ -16,35 +19,53 @@ public class CutMesh : MonoBehaviour {
         victim.GetComponent<cutSound>().playClip();
         if (victim.CompareTag("fruit"))
         {
-            global.score += 10;
-            GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
-
-            if (!pieces[0].GetComponent<Rigidbody>())
+            DestroyFruit df = victim.GetComponent<DestroyFruit>();
+            if (!df.died)
             {
-                pieces[0].AddComponent<Rigidbody>();
-                MeshCollider tmp = pieces[0].AddComponent<MeshCollider>();
-                tmp.convex = true;
+                if (global)
+                {
+                    global.score += 10;
+                }
             }
-
-            if (!pieces[0].GetComponent<DestroyFruit>())
-            {
-                pieces[0].AddComponent<DestroyFruit>();
-            }
-
-            if (!pieces[1].GetComponent<Rigidbody>())
-            {
-                pieces[1].AddComponent<Rigidbody>();
-                MeshCollider tmp = pieces[1].AddComponent<MeshCollider>();
-                tmp.convex = true;
-            }
-
-            if (!pieces[1].GetComponent<DestroyFruit>())
-            {
-                pieces[1].AddComponent<DestroyFruit>();
-            }
-
-            pieces[0].tag = "fruitPieces";
-            pieces[1].tag = "fruitPieces";
         }
+
+        if (victim.CompareTag("bomb"))
+        {
+            global.health--;
+            Destroy(victim);
+            return;
+        }
+
+        GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
+
+        if (!pieces[0].GetComponent<Rigidbody>())
+        {
+            pieces[0].AddComponent<Rigidbody>();
+            MeshCollider tmp = pieces[0].AddComponent<MeshCollider>();
+            tmp.convex = true;
+        }
+
+        if (!pieces[0].GetComponent<DestroyFruit>())
+        {
+            DestroyFruit df = pieces[0].AddComponent<DestroyFruit>();
+            df.useGravity = true;
+        }
+
+        if (!pieces[1].GetComponent<Rigidbody>())
+        {
+            pieces[1].AddComponent<Rigidbody>();
+            MeshCollider tmp = pieces[1].AddComponent<MeshCollider>();
+            tmp.convex = true;
+        }
+
+        if (!pieces[1].GetComponent<DestroyFruit>())
+        {
+            DestroyFruit df = pieces[1].AddComponent<DestroyFruit>();
+            df.useGravity = true;
+        }
+
+        pieces[0].tag = "fruitPieces";
+        pieces[1].tag = "fruitPieces";
+    
     }
 }
