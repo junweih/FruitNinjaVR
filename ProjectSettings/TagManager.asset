@@ -7,6 +7,7 @@ TagManager:
   - fruit
   - fruitPieces
   - bomb
+  - player
   layers:
   - Default
   - TransparentFX

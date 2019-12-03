@@ -15,7 +15,7 @@ namespace Valve.VR.InteractionSystem
 	{
 		public Transform head;
 
-		private CapsuleCollider capsuleCollider;
+        private CapsuleCollider capsuleCollider;
 
 		//-------------------------------------------------
 		void Awake()
@@ -31,5 +31,5 @@ namespace Valve.VR.InteractionSystem
 			capsuleCollider.height = Mathf.Max( capsuleCollider.radius, distanceFromFloor );
 			transform.localPosition = head.localPosition - 0.5f * distanceFromFloor * Vector3.up;
 		}
-	}
+    }
 }
