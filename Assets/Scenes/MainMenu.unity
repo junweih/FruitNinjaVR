@@ -455,11 +455,11 @@ PrefabInstance:
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1681831989}
+      objectReference: {fileID: 1742214409}
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 2018890040}
+      objectReference: {fileID: 2045009954}
     - target: {fileID: 11417168, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -532,10 +532,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1177274162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d257f2874a3ff0469ca73c082e4d7e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 58b323a6078ee574fa39b7d5d96053b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capMaterial: {fileID: 2100000, guid: 2b8f97f33f4044c8383f5bf2816b331d, type: 2}
 --- !u!54 &1177274165
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -784,7 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   t: 0
   enable: 0
---- !u!21 &1681831989
+--- !u!21 &1742214409
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1004,7 +1003,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &2018890040
+--- !u!43 &2045009954
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
