@@ -8,6 +8,7 @@ public class BombScript : MonoBehaviour
     private float t;
     public bool died;
     private GlobalLogic global;
+    public AudioClip bombExplode;
     private void Start()
     {
         t = 2.0f;
@@ -44,7 +45,8 @@ public class BombScript : MonoBehaviour
 
         if (victim.CompareTag("player"))
         {
-            if(global)
+            AudioSource.PlayClipAtPoint(bombExplode, victim.transform.position);
+            if (global)
                 global.health--;
             Destroy(this.gameObject);
             return;
