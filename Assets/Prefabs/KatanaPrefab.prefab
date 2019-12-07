@@ -26,6 +26,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: KatanaPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: -5178661895559278292, guid: 864b1e1d87cf6f24bae680aba53278b6,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8077956367775695946, guid: 2f55a043971afc342bde06ae37caa94c,
+        type: 3}
     - target: {fileID: -4216859302048453862, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -34,12 +40,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.008
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.176
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
@@ -84,17 +90,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.005
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 864b1e1d87cf6f24bae680aba53278b6,
         type: 3}
@@ -106,12 +112,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4bfd21005997ca1409c12e06d2755801, type: 2}
-    - target: {fileID: -5178661895559278292, guid: 864b1e1d87cf6f24bae680aba53278b6,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 8077956367775695946, guid: 2f55a043971afc342bde06ae37caa94c,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 864b1e1d87cf6f24bae680aba53278b6, type: 3}
 --- !u!1 &3207406678528865463 stripped

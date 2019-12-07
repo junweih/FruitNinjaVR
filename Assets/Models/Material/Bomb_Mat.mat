@@ -44,11 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 869e5e039d942a64d9d402914381be7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: dd3a6e344b04e3b4d9674e3a3a0d9368, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: ab95475a6398c14499566b87a18c380a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 82805c65df1b25249a450dbca5a5d6e9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -64,7 +64,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 1
+    - _GlossMapScale: 0.3
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
@@ -78,7 +78,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.7607844, g: 0.7607844, b: 0.7607844, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

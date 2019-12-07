@@ -16,6 +16,18 @@ public class CutMesh : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         GameObject victim = collision.collider.gameObject;
+
+        if (victim.CompareTag("bomb"))
+        {
+            global.health--;
+            Destroy(victim);
+            return;
+        }
+
+        if (!(victim.CompareTag("fruit") || victim.CompareTag("fruitPieces")))
+        {
+            return;
+        }
         
         if (victim.CompareTag("fruit"))
         {
@@ -28,13 +40,6 @@ public class CutMesh : MonoBehaviour {
                     global.score += 10;
                 }
             }
-        }
-
-        if (victim.CompareTag("bomb"))
-        {
-            global.health--;
-            Destroy(victim);
-            return;
         }
 
         GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
