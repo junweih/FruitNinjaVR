@@ -9,13 +9,19 @@ public class GlobalLogic : MonoBehaviour
     public int score;
     public TextMesh scoreUI;
     public int health;
+    //public GameObject SoundEffect;
     private float randomTime;
     public float waitTime;
     private float curWaitT;
     private Vector3 spwanCenter;
     public float randomSlot;
-    public AudioClip spawnClip;
+    public AudioClip alertClip;
+    public AudioClip fruitSpawnClip;
+    public AudioClip bombSpawnClip;
+
+
     bool pauseGeneration;
+    //private SoundEffects Sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +31,8 @@ public class GlobalLogic : MonoBehaviour
         waitTime = 3.0f;
         pauseGeneration = false;
         scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
+        //Sound = SoundEffect.GetComponent<SoundEffects>();
+        
         randomSpawnCenter();
     }
 
@@ -36,7 +44,7 @@ public class GlobalLogic : MonoBehaviour
         spwanCenter.x += Mathf.Sin(rng) * 8f;
         spwanCenter.z += Mathf.Cos(rng) * 8f;
         spwanCenter.y += Random.Range(1.3f, 1.6f);
-        AudioSource.PlayClipAtPoint(spawnClip, spwanCenter);
+        AudioSource.PlayClipAtPoint(alertClip, spwanCenter);
     }
 
     Vector3 randomSpawnPoint()
@@ -90,11 +98,21 @@ public class GlobalLogic : MonoBehaviour
             }
             else
             {
-                GameObject go = Instantiate(fruits[Random.Range(0, fruits.Length)]);
+                int index = Random.Range(0, fruits.Length);
+                GameObject go = Instantiate(fruits[index]);
 
                 Rigidbody tmp = go.GetComponent<Rigidbody>();
 
                 go.transform.position = randomSpawnPoint();
+
+                if (index == fruits.Length - 1) // Spwan a bomb
+                {
+                    AudioSource.PlayClipAtPoint(bombSpawnClip, go.transform.position, 0.7f);
+                } else // Spwan a fruit
+                {
+                    AudioSource.PlayClipAtPoint(fruitSpawnClip, go.transform.position, 0.8f);
+                }
+                
 
                 Vector3 target = transform.position;
                 float rng = Random.Range(-3.14f, 3.14f);
@@ -114,7 +132,7 @@ public class GlobalLogic : MonoBehaviour
                     go.GetComponent<DestroyFruit>().useGravity = true;
                 }
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.3f);
             }
         }
     }
