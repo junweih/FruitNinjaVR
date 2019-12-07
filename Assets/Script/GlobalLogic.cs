@@ -32,7 +32,7 @@ public class GlobalLogic : MonoBehaviour
     {
         randomTime = randomSlot;
         spwanCenter = transform.position;
-        float rng = Random.Range(-1.57f, 1.57f);
+        float rng = Random.Range(1.57f, 4.71f);
         spwanCenter.x += Mathf.Sin(rng) * 8f;
         spwanCenter.z += Mathf.Cos(rng) * 8f;
         spwanCenter.y += Random.Range(1.3f, 1.6f);
