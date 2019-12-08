@@ -18,7 +18,8 @@ public class GlobalLogic : MonoBehaviour
     public AudioClip fruitSpawnClip;
     public AudioClip bombSpawnClip;
     public float fruitPossibility;
-
+    public GameObject player;
+    private
     //private SoundEffects Sound;
     // Start is called before the first frame update
     void Start()
@@ -62,13 +63,15 @@ public class GlobalLogic : MonoBehaviour
             if (rng < fruitPossibility)
             {
                 go = Instantiate(fruitShooter);
+                
             } else
             {
                 go = Instantiate(bombShooter);
+                //go.transform.rotation = Quaternion.LookRotation(player.transform.position - go.transform.position);
             }
             Rigidbody tmp = go.GetComponent<Rigidbody>();
             go.transform.position = spawnCenter;
-
+            go.transform.rotation = Quaternion.LookRotation(player.transform.position - go.transform.position);
             curWaitT = waitTime;
         }
         scoreUI.text = "Score : " + score.ToString();
@@ -76,7 +79,10 @@ public class GlobalLogic : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
         }
+
     }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
