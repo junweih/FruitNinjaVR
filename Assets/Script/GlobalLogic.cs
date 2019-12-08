@@ -5,51 +5,43 @@ using UnityEngine.SceneManagement;
 
 public class GlobalLogic : MonoBehaviour
 {
-    public GameObject[] fruits;
+    public GameObject fruitShooter;
+    public GameObject bombShooter;
     public int score;
     public TextMesh scoreUI;
     public int health;
     //public GameObject SoundEffect;
-    private float randomTime;
     public float waitTime;
     private float curWaitT;
-    private Vector3 spwanCenter;
-    public float randomSlot;
+    private Vector3 spawnCenter;
     public AudioClip alertClip;
     public AudioClip fruitSpawnClip;
     public AudioClip bombSpawnClip;
+    public float fruitPossibility;
 
-
-    bool pauseGeneration;
     //private SoundEffects Sound;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Spawn());
         score = 0;
         health = 3;
-        waitTime = 3.0f;
-        pauseGeneration = false;
         scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
         //Sound = SoundEffect.GetComponent<SoundEffects>();
-        
-        randomSpawnCenter();
     }
 
     void randomSpawnCenter()
     {
-        randomTime = randomSlot;
-        spwanCenter = transform.position;
-        float rng = Random.Range(1.57f, 4.71f);
-        spwanCenter.x += Mathf.Sin(rng) * 8f;
-        spwanCenter.z += Mathf.Cos(rng) * 8f;
-        spwanCenter.y += Random.Range(1.3f, 1.6f);
-        AudioSource.PlayClipAtPoint(alertClip, spwanCenter);
+        spawnCenter = transform.position;
+        float rng = Random.Range(2.0f, 4.2f);
+        spawnCenter.x += Mathf.Sin(rng) * 8f;
+        spawnCenter.z += Mathf.Cos(rng) * 8f;
+        spawnCenter.y += Random.Range(1.3f, 1.6f);
+        AudioSource.PlayClipAtPoint(alertClip, spawnCenter);
     }
 
     Vector3 randomSpawnPoint()
     {
-        Vector3 spwanPoint = spwanCenter;
+        Vector3 spwanPoint = spawnCenter;
         float rng = Random.Range(-3.14f, 3.14f);
         spwanPoint.x += Mathf.Sin(rng) * 1f;
         spwanPoint.z += Mathf.Cos(rng) * 1f;
@@ -60,80 +52,29 @@ public class GlobalLogic : MonoBehaviour
 
     private void Update()
     {
-        float deltaT = Time.deltaTime;
-        if (pauseGeneration)
+        curWaitT -= Time.deltaTime;
+        if (curWaitT < 0)
         {
-      
-            curWaitT -= deltaT;
-            if (curWaitT < 0)
+            Debug.Log("RESET CENTER");
+            randomSpawnCenter();
+            float rng = Random.Range(0.0f, 1.0f);
+            GameObject go;
+            if (rng < fruitPossibility)
             {
-                Debug.Log("RESET CENTER");
-                pauseGeneration = false;
-                randomSpawnCenter();
-            }
-        } else
-        {
-            randomTime -= deltaT;
-            if (randomTime < 0)
+                go = Instantiate(fruitShooter);
+            } else
             {
-                Debug.Log("start count reset center");
-                curWaitT = waitTime;
-                pauseGeneration = true;
+                go = Instantiate(bombShooter);
             }
+            Rigidbody tmp = go.GetComponent<Rigidbody>();
+            go.transform.position = spawnCenter;
+
+            curWaitT = waitTime;
         }
         scoreUI.text = "Score : " + score.ToString();
         if (health < 0)
         {
             SceneManager.LoadScene("MainMenu");
-        }
-    }
-
-    IEnumerator Spawn()
-    {
-        while(true)
-        {
-            if (pauseGeneration)
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
-            else
-            {
-                int index = Random.Range(0, fruits.Length);
-                GameObject go = Instantiate(fruits[index]);
-
-                Rigidbody tmp = go.GetComponent<Rigidbody>();
-
-                go.transform.position = randomSpawnPoint();
-
-                if (index == fruits.Length - 1) // Spwan a bomb
-                {
-                    AudioSource.PlayClipAtPoint(bombSpawnClip, go.transform.position, 0.7f);
-                } else // Spwan a fruit
-                {
-                    AudioSource.PlayClipAtPoint(fruitSpawnClip, go.transform.position, 0.8f);
-                }
-                
-
-                Vector3 target = transform.position;
-                float rng = Random.Range(-3.14f, 3.14f);
-                target.x += Mathf.Sin(rng) * 0.5f;
-                target.z += Mathf.Cos(rng) * 0.5f;
-
-                Vector3 vel = target - go.transform.position;
-                vel.y = 0f;
-                vel = vel.normalized * 2.2f;
-                vel.y = 1.0f;
-                tmp.velocity = vel;
-                tmp.angularVelocity = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
-                tmp.useGravity = false;
-
-                if (go.GetComponent<DestroyFruit>())
-                {
-                    go.GetComponent<DestroyFruit>().useGravity = true;
-                }
-
-                yield return new WaitForSeconds(0.3f);
-            }
         }
     }
 

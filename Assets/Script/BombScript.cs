@@ -52,4 +52,9 @@ public class BombScript : MonoBehaviour
             return;
         }
     }
+
+    public void playExplosionsound()
+    {
+        AudioSource.PlayClipAtPoint(bombExplode, gameObject.transform.position);
+    } 
 }

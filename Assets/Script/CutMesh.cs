@@ -20,6 +20,8 @@ public class CutMesh : MonoBehaviour {
         if (victim.CompareTag("bomb"))
         {
             global.health--;
+            BombScript bs = victim.GetComponent<BombScript>();
+            bs.playExplosionsound();
             Destroy(victim);
             return;
         }
