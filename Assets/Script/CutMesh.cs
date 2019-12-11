@@ -7,17 +7,49 @@ public class CutMesh : MonoBehaviour {
 
 	public Material capMaterial;
     private GlobalLogic global;
-    private SteamVR_Action_Vibration hapticAction;
-	void Start () {
+    public SteamVR_Action_Vibration hapticAction;
+    private SteamVR_TrackedObject TrackedObject;
+
+
+    // a reference to the action
+    public SteamVR_Action_Boolean SphereOnOff;
+    // a reference to the hand
+
+    private bool hapticStart = false;
+
+
+    void Start () {
+ 
         GameObject tmp = GameObject.Find("Global");
         if (tmp) {
             global = tmp.GetComponent<GlobalLogic>();
         }
+        //trackedobject = this.getcomponent<steamvr_trackedobject>();
+        //print((int)(trackedobject.index));
 	}
 
     private void RightHandPulse(float duratiton, float frequencey, float amplitute)
     {
         hapticAction.Execute(0, duratiton, frequencey, amplitute, SteamVR_Input_Sources.RightHand);
+    }
+
+    private float timer = 0f;
+    private void Update()
+    {
+        if (hapticStart)
+        {
+            RightHandPulse(1.5f, 1f, 1f);
+            timer += Time.deltaTime;
+            if (timer > 0.5f)
+            {
+                timer = 0f;
+                hapticStart = false;
+            }
+        }
+
+        // Check if we have reached beyond 2 seconds.
+        // Subtracting two is more accurate over time than resetting to zero.
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -26,7 +58,7 @@ public class CutMesh : MonoBehaviour {
 
         if (victim.CompareTag("bomb"))
         {
-            RightHandPulse(1, 150, 2000);
+            hapticStart = true;
             global.health--;
             BombScript bs = victim.GetComponent<BombScript>();
             bs.playExplosionsound();
@@ -41,7 +73,12 @@ public class CutMesh : MonoBehaviour {
         
         if (victim.CompareTag("fruit"))
         {
-            RightHandPulse(1, 150, 400);
+            for(int i = 0; i <100; i++)
+            {
+                RightHandPulse(1.5f, 1f, 1f);
+            }
+            
+
             victim.GetComponent<cutSound>().playClip();
             DestroyFruit df = victim.GetComponent<DestroyFruit>();
             if (!df.died)
