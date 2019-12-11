@@ -17,7 +17,7 @@ public class Defend : MonoBehaviour {
         
         if (victim.CompareTag("bomb"))
         {
-            Destroy(victim);
+            victim.GetComponent<BombScript>().died = true;
             return;
         }
     }

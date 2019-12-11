@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5382101793389645957}
   m_Layer: 0
   m_Name: PA_DropPod
-  m_TagString: Untagged
+  m_TagString: shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -8,6 +8,7 @@ public class DestroyFruit : MonoBehaviour
     private float t;
     public bool died;
     public bool useGravity;
+    public GameObject deathExplosion;
     private void Start()
     {
         t = 2.0f;
@@ -33,5 +34,14 @@ public class DestroyFruit : MonoBehaviour
             Vector3 gravity = -0.6f * Vector3.up;
             GetComponent<Rigidbody>().AddForce(gravity, ForceMode.Acceleration);
         }
+    }
+    public void Die()
+    {
+        GameObject psObj = Instantiate(deathExplosion, gameObject.transform.position, Quaternion.identity) as GameObject;
+        ParticleSystem ps = psObj.GetComponent<ParticleSystem>();
+        float startTime = ps.main.startLifetime.constantMax;
+        float duration = ps.main.duration;
+        float totalDuration = startTime + duration;
+        Destroy(psObj, totalDuration);
     }
 }

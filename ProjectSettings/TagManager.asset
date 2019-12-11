@@ -8,6 +8,7 @@ TagManager:
   - fruitPieces
   - bomb
   - player
+  - shooter
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - FireLayer
   - 
   - 
   - 

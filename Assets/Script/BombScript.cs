@@ -9,6 +9,8 @@ public class BombScript : MonoBehaviour
     public bool died;
     private GlobalLogic global;
     public AudioClip bombExplode;
+    public GameObject deathExplosion;
+
     private void Start()
     {
         t = 2.0f;
@@ -41,11 +43,14 @@ public class BombScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (died)
+            return;
+
         GameObject victim = collision.collider.gameObject;
 
         if (victim.CompareTag("player"))
         {
-            AudioSource.PlayClipAtPoint(bombExplode, victim.transform.position);
+            Die();
             if (global)
                 global.health--;
             Destroy(this.gameObject);
@@ -53,8 +58,15 @@ public class BombScript : MonoBehaviour
         }
     }
 
-    public void playExplosionsound()
+    public void Die()
     {
         AudioSource.PlayClipAtPoint(bombExplode, gameObject.transform.position);
-    } 
+
+        GameObject psObj = Instantiate(deathExplosion, gameObject.transform.position, Quaternion.identity) as GameObject;
+        ParticleSystem ps = psObj.GetComponent<ParticleSystem>();
+        float startTime = ps.main.startLifetime.constantMax;
+        float duration = ps.main.duration;
+        float totalDuration = startTime + duration;
+        Destroy(psObj, totalDuration);
+    }
 }

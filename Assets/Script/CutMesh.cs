@@ -7,13 +7,7 @@ public class CutMesh : MonoBehaviour {
 
 	public Material capMaterial;
     private GlobalLogic global;
-    public SteamVR_Action_Vibration hapticAction;
-    private SteamVR_TrackedObject TrackedObject;
-
-
-    // a reference to the action
-    public SteamVR_Action_Boolean SphereOnOff;
-    // a reference to the hand
+    public SteamVR_Action_Vibration hapticAction;    private SteamVR_TrackedObject TrackedObject;
 
     private bool hapticStart = false;
 
@@ -59,9 +53,12 @@ public class CutMesh : MonoBehaviour {
         if (victim.CompareTag("bomb"))
         {
             hapticStart = true;
-            global.health--;
             BombScript bs = victim.GetComponent<BombScript>();
-            bs.playExplosionsound();
+            if (bs.died)
+                return;
+            
+            global.health--;
+            bs.Die();
             Destroy(victim);
             return;
         }
@@ -83,6 +80,7 @@ public class CutMesh : MonoBehaviour {
             DestroyFruit df = victim.GetComponent<DestroyFruit>();
             if (!df.died)
             {
+                df.Die();
                 if (global)
                 {
                     global.score += 10;
