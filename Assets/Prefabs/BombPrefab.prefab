@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   died: 0
   bombExplode: {fileID: 8300000, guid: 93def4e6583aa2a49ba6888f71f9fe03, type: 3}
-  deathExplosion: {fileID: 100006, guid: e076683e0305e35498b8e8834978c0fa, type: 3}
+  deathExplosion: {fileID: 100004, guid: 82019e923dca94848916b96b8f98a352, type: 3}
 --- !u!54 &-2823753299459947794
 Rigidbody:
   m_ObjectHideFlags: 0
