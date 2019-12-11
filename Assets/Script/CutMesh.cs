@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Valve.VR;
 
 [RequireComponent (typeof(Rigidbody))]
 public class CutMesh : MonoBehaviour {
 
 	public Material capMaterial;
     private GlobalLogic global;
+    private SteamVR_Action_Vibration hapticAction;
 	void Start () {
         GameObject tmp = GameObject.Find("Global");
         if (tmp) {
@@ -13,12 +15,18 @@ public class CutMesh : MonoBehaviour {
         }
 	}
 
+    private void RightHandPulse(float duratiton, float frequencey, float amplitute)
+    {
+        hapticAction.Execute(0, duratiton, frequencey, amplitute, SteamVR_Input_Sources.RightHand);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         GameObject victim = collision.collider.gameObject;
 
         if (victim.CompareTag("bomb"))
         {
+            RightHandPulse(1, 150, 2000);
             global.health--;
             BombScript bs = victim.GetComponent<BombScript>();
             bs.playExplosionsound();
@@ -33,6 +41,7 @@ public class CutMesh : MonoBehaviour {
         
         if (victim.CompareTag("fruit"))
         {
+            RightHandPulse(1, 150, 400);
             victim.GetComponent<cutSound>().playClip();
             DestroyFruit df = victim.GetComponent<DestroyFruit>();
             if (!df.died)
