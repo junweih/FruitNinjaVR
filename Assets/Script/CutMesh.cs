@@ -7,8 +7,7 @@ public class CutMesh : MonoBehaviour {
 
 	public Material capMaterial;
     private GlobalLogic global;
-    public SteamVR_Action_Vibration hapticAction;    private SteamVR_TrackedObject TrackedObject;
-
+    public SteamVR_Action_Vibration hapticAction; 
     private bool hapticStart = false;
 
 
@@ -34,15 +33,13 @@ public class CutMesh : MonoBehaviour {
         {
             RightHandPulse(1.5f, 1f, 1f);
             timer += Time.deltaTime;
-            if (timer > 0.5f)
+            if (timer > 0.75f)
             {
                 timer = 0f;
                 hapticStart = false;
             }
         }
 
-        // Check if we have reached beyond 2 seconds.
-        // Subtracting two is more accurate over time than resetting to zero.
 
     }
 
