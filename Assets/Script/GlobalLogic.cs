@@ -56,7 +56,6 @@ public class GlobalLogic : MonoBehaviour
         spawnCenter.x += Mathf.Sin(rng) * 8f;
         spawnCenter.z += Mathf.Cos(rng) * 8f;
         spawnCenter.y += Random.Range(1.3f, 1.6f);
-        AudioSource.PlayClipAtPoint(alertClip, spawnCenter);
     }
 
     Vector3 randomSpawnPoint()
