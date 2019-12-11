@@ -34,7 +34,7 @@ public class GlobalLogic : MonoBehaviour
         scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
         levelUI = GameObject.Find("LevelUI").GetComponent<TextMesh>();
         //Sound = SoundEffect.GetComponent<SoundEffects>();
-        curLevel = 0;
+        curLevel = 0.0f;
         setNextLevel();
     }
 
@@ -42,7 +42,7 @@ public class GlobalLogic : MonoBehaviour
     {
         score = 0;
         health = 3;
-        curLevel++;
+        curLevel += 1.0f;
         fruitPossibility = 1.0f / (0.33f * curLevel + 0.67f);
         waitTime = 13.5f / (0.5f * curLevel + 1.5f);
         curWaitT = waitTime;
