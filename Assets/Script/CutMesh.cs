@@ -58,7 +58,7 @@ public class CutMesh : MonoBehaviour {
                 return;
             
             global.health--;
-            bs.Die();
+            bs.Die(collision.contacts[0].point);
             Destroy(victim);
             return;
         }

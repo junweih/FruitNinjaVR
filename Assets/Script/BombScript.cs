@@ -50,7 +50,7 @@ public class BombScript : MonoBehaviour
 
         if (victim.CompareTag("player"))
         {
-            Die();
+            Die(collision.contacts[0].point);
             if (global)
                 global.health--;
             Destroy(this.gameObject);
@@ -58,11 +58,11 @@ public class BombScript : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void Die(Vector3 pos)
     {
-        AudioSource.PlayClipAtPoint(bombExplode, gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(bombExplode, pos);
 
-        GameObject psObj = Instantiate(deathExplosion, gameObject.transform.position, Quaternion.identity) as GameObject;
+        GameObject psObj = Instantiate(deathExplosion, pos, Quaternion.identity) as GameObject;
         ParticleSystem ps = psObj.GetComponent<ParticleSystem>();
         float startTime = ps.main.startLifetime.constantMax;
         float duration = ps.main.duration;
