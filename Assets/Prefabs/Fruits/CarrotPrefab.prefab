@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   died: 0
   useGravity: 0
+  deathExplosion: {fileID: 100000, guid: acfa2df713f1e4345ba2d4515227e21a, type: 3}
 --- !u!114 &3021274878253769379
 MonoBehaviour:
   m_ObjectHideFlags: 0

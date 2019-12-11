@@ -8,26 +8,45 @@ public class GlobalLogic : MonoBehaviour
     public GameObject fruitShooter;
     public GameObject bombShooter;
     public int score;
-    public TextMesh scoreUI;
     public int health;
     //public GameObject SoundEffect;
     public float waitTime;
-    private float curWaitT;
-    private Vector3 spawnCenter;
     public AudioClip alertClip;
     public AudioClip fruitSpawnClip;
     public AudioClip bombSpawnClip;
     public float fruitPossibility;
     public GameObject player;
-    private
+
+    public int[] goals;
+
+    private float curWaitT;
+    private Vector3 spawnCenter;
+    private TextMesh scoreUI;
+    private TextMesh levelUI;
+
+    private float curLevel;
+
+
     //private SoundEffects Sound;
     // Start is called before the first frame update
     void Start()
     {
+        scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
+        levelUI = GameObject.Find("LevelUI").GetComponent<TextMesh>();
+        //Sound = SoundEffect.GetComponent<SoundEffects>();
+        curLevel = 0;
+        setNextLevel();
+    }
+
+    void setNextLevel()
+    {
         score = 0;
         health = 3;
-        scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
-        //Sound = SoundEffect.GetComponent<SoundEffects>();
+        curLevel++;
+        fruitPossibility = 1.0f / (0.33f * curLevel + 0.67f);
+        waitTime = 13.5f / (0.5f * curLevel + 1.5f);
+        curWaitT = waitTime;
+        levelUI.text = "Level " + ((int)curLevel).ToString() + " Goal: " + goals[(int)curLevel - 1].ToString();
     }
 
     void randomSpawnCenter()
@@ -49,10 +68,42 @@ public class GlobalLogic : MonoBehaviour
         spwanPoint.y += Random.Range(-0.5f, 0.5f);
         return spwanPoint;
     }
+
+    void updateLevel()
+    {
+        if(score >= goals[(int)curLevel - 1])
+        {
+            foreach (GameObject shooter in GameObject.FindGameObjectsWithTag("shooter"))
+            {
+                Destroy(shooter);
+            }
+
+            foreach (GameObject fruit in GameObject.FindGameObjectsWithTag("fruit"))
+            {
+                fruit.GetComponent<DestroyFruit>().Die();
+                fruit.GetComponent<DestroyFruit>().died = true;
+            }
+
+            foreach (GameObject fruitP in GameObject.FindGameObjectsWithTag("fruitPieces"))
+            {
+                fruitP.GetComponent<DestroyFruit>().died = true;
+            }
+
+            setNextLevel();
+        }
+    }
     
 
     private void Update()
     {
+        if (Input.GetKeyDown("space"))
+        {
+            Debug.Log(Input.mousePosition);
+            score += 10;
+        }
+
+        updateLevel();
+
         curWaitT -= Time.deltaTime;
         if (curWaitT < 0)
         {

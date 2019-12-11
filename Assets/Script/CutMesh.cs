@@ -27,9 +27,12 @@ public class CutMesh : MonoBehaviour {
         if (victim.CompareTag("bomb"))
         {
             RightHandPulse(1, 150, 2000);
-            global.health--;
             BombScript bs = victim.GetComponent<BombScript>();
-            bs.playExplosionsound();
+            if (bs.died)
+                return;
+            
+            global.health--;
+            bs.Die();
             Destroy(victim);
             return;
         }
@@ -46,6 +49,7 @@ public class CutMesh : MonoBehaviour {
             DestroyFruit df = victim.GetComponent<DestroyFruit>();
             if (!df.died)
             {
+                df.Die();
                 if (global)
                 {
                     global.score += 10;
