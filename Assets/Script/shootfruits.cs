@@ -29,6 +29,8 @@ public class shootfruits : MonoBehaviour
         {
             int index = Random.Range(0, fruits.Length);
             GameObject go = Instantiate(fruits[index]);
+           // cutSound sound = go.GetComponent<cutSound>();
+            //sound.playSpwan();
 
             Rigidbody tmp = go.GetComponent<Rigidbody>();
 
