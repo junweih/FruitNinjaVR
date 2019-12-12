@@ -3,6 +3,7 @@ using System.Collections;
 using Valve.VR;
 
 [RequireComponent (typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class CutMesh : MonoBehaviour {
 
 	public Material capMaterial;
