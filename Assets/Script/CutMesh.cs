@@ -36,7 +36,7 @@ public class CutMesh : MonoBehaviour {
     private bool wiping = false;
     private void Update()
     {
-        if ((trackedObj.GetVelocity()).magnitude >= 1.3f && !wiping)
+        if ((trackedObj.GetVelocity()).magnitude >= 1.5f && !wiping)
         {
             wiping = true;
             int index = Random.Range(0, swordWipes.Length - 1);
@@ -49,7 +49,7 @@ public class CutMesh : MonoBehaviour {
         if(wiping)
         {
             wipeTimer += Time.deltaTime;
-            if (wipeTimer > 0.5f)
+            if (wipeTimer > 0.75f)
             {
                 wipeTimer = 0f;
                 wiping = false;
