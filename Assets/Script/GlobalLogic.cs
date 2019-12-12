@@ -88,6 +88,11 @@ public class GlobalLogic : MonoBehaviour
                 fruitP.GetComponent<DestroyFruit>().died = true;
             }
 
+            if (curLevel == 5.0f)
+            {
+                SceneManager.LoadScene("WinScene");
+            }
+
             setNextLevel();
         }
     }
@@ -127,7 +132,7 @@ public class GlobalLogic : MonoBehaviour
         scoreUI.text = "Score : " + score.ToString();
         if (health < 0)
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("LoseScene");
         }
 
     }
