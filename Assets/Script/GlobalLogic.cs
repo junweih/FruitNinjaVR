@@ -153,18 +153,18 @@ public class GlobalLogic : MonoBehaviour
             if (rng < fruitPossibility)
             {
                 go = Instantiate(fruitShooter);
-                
             } else
             {
                 go = Instantiate(bombShooter);
                 //go.transform.rotation = Quaternion.LookRotation(player.transform.position - go.transform.position);
             }
-            shootfruits shootFruit = go.GetComponent<shootfruits>();
+            
             
             Rigidbody tmp = go.GetComponent<Rigidbody>();
             
-            if (waitTime < 3.5f && Vector3.Distance(lastFruitSpwan, spawnCenter) > 5f )
+            if (waitTime < 3.5f && Vector3.Distance(lastFruitSpwan, spawnCenter) > 5f && go.GetComponent<shootfruits>())
             {
+                shootfruits shootFruit = go.GetComponent<shootfruits>();
                 shootFruit.canPlay = true;
             }
             go.transform.position = spawnCenter;

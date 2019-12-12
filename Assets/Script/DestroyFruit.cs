@@ -8,6 +8,7 @@ public class DestroyFruit : MonoBehaviour
     private float t;
     public bool died;
     public bool useGravity;
+    public bool sliced;
     public GameObject deathExplosion;
     private void Start()
     {
@@ -32,6 +33,11 @@ public class DestroyFruit : MonoBehaviour
         if (useGravity)
         {
             Vector3 gravity = -0.6f * Vector3.up;
+            if (sliced)
+            {
+                gravity = -1.0f * Vector3.up;
+            }
+            
             GetComponent<Rigidbody>().AddForce(gravity, ForceMode.Acceleration);
         }
     }

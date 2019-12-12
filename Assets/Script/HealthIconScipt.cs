@@ -24,7 +24,7 @@ public class HealthIconScipt : MonoBehaviour
             this.gameObject.SetActive(false);
             return;
         }
-        if (id <= global.health && !this.gameObject.activeSelf)
+        if (id <= global.health)
         {
             this.gameObject.SetActive(true);
             return;
