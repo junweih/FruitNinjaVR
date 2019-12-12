@@ -81,8 +81,24 @@ public class GlobalLogic : MonoBehaviour
     }
 
     void updateLevel()
-    {      
-        if (curLevel == 5.0f)
+    {
+        foreach (GameObject shooter in GameObject.FindGameObjectsWithTag("shooter"))
+        {
+            Destroy(shooter);
+        }
+
+        foreach (GameObject fruit in GameObject.FindGameObjectsWithTag("fruit"))
+        {
+            fruit.GetComponent<DestroyFruit>().Die();
+            fruit.GetComponent<DestroyFruit>().died = true;
+        }
+
+        foreach (GameObject fruitP in GameObject.FindGameObjectsWithTag("fruitPieces"))
+        {
+            fruitP.GetComponent<DestroyFruit>().died = true;
+        }
+
+            if (curLevel == 5.0f)
             {
                 SceneManager.LoadScene("WinScene");
             }
@@ -103,24 +119,9 @@ public class GlobalLogic : MonoBehaviour
             score += 10;
         }
 
-        if (score >= goals[(int)curLevel - 1] && !levelWaiting)
+        if (score >= goals[(int)curLevel - 1])
         {
             levelWaiting = true;
-            foreach (GameObject shooter in GameObject.FindGameObjectsWithTag("shooter"))
-            {
-                Destroy(shooter);
-            }
-
-            foreach (GameObject fruit in GameObject.FindGameObjectsWithTag("fruit"))
-            {
-                fruit.GetComponent<DestroyFruit>().Die();
-                fruit.GetComponent<DestroyFruit>().died = true;
-            }
-
-            foreach (GameObject fruitP in GameObject.FindGameObjectsWithTag("fruitPieces"))
-            {
-                fruitP.GetComponent<DestroyFruit>().died = true;
-            }
         }
 
         if (levelWaiting)
