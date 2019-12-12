@@ -52,7 +52,7 @@ public class CutMesh : MonoBehaviour {
 
         if(trackedObj)
         {
-            if((trackedObj.GetVelocity()).magnitude < 0.5f)
+            if((trackedObj.GetVelocity()).magnitude < 1f)
             {
                 return;
             }
@@ -79,7 +79,7 @@ public class CutMesh : MonoBehaviour {
         if (victim.CompareTag("fruit"))
         {
 
-            for(int i = 0; i <100; i++)
+            for(int i = 0; i < 100; i++)
             {
                 RightHandPulse(1.5f, 1f, 1f);
             }
