@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR;
 
 public class GlobalLogic : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class GlobalLogic : MonoBehaviour
 
     private float curLevel;
 
+    public SteamVR_Action_Vibration hapticAction;
+    public AudioSource heartBeat;
+
 
     //private SoundEffects Sound;
     // Start is called before the first frame update
@@ -34,8 +38,16 @@ public class GlobalLogic : MonoBehaviour
         scoreUI = GameObject.Find("ScoreUI").GetComponent<TextMesh>();
         levelUI = GameObject.Find("LevelUI").GetComponent<TextMesh>();
         //Sound = SoundEffect.GetComponent<SoundEffects>();
+        heartBeat = GetComponent<AudioSource>();
         curLevel = 0.0f;
+        waitBewteenLevel = waitTimeBewteenLevel;
         setNextLevel();
+    }
+
+    private void HandPulse(float duratiton, float frequencey, float amplitute)
+    {
+        hapticAction.Execute(0, duratiton, frequencey, amplitute, SteamVR_Input_Sources.RightHand);
+        hapticAction.Execute(0, duratiton, frequencey, amplitute, SteamVR_Input_Sources.LeftHand);
     }
 
     void setNextLevel()
@@ -44,7 +56,7 @@ public class GlobalLogic : MonoBehaviour
         health = 3;
         curLevel += 1.0f;
         fruitPossibility = 1.0f / (0.33f * curLevel + 0.67f);
-        waitTime = 13.5f / (curLevel + 2.0f) + 1.5f;
+        waitTime = 5f / (curLevel + 2.0f) + 1.5f;
         curWaitT = waitTime;
         levelUI.text = "Level " + ((int)curLevel).ToString() + " Goal: " + goals[(int)curLevel - 1].ToString();
     }
@@ -70,29 +82,30 @@ public class GlobalLogic : MonoBehaviour
 
     void updateLevel()
     {
-        if(score >= goals[(int)curLevel - 1])
+        foreach (GameObject shooter in GameObject.FindGameObjectsWithTag("shooter"))
         {
-            foreach (GameObject shooter in GameObject.FindGameObjectsWithTag("shooter"))
-            {
-                Destroy(shooter);
-            }
-
-            foreach (GameObject fruit in GameObject.FindGameObjectsWithTag("fruit"))
-            {
-                fruit.GetComponent<DestroyFruit>().Die();
-                fruit.GetComponent<DestroyFruit>().died = true;
-            }
-
-            foreach (GameObject fruitP in GameObject.FindGameObjectsWithTag("fruitPieces"))
-            {
-                fruitP.GetComponent<DestroyFruit>().died = true;
-            }
-
-            setNextLevel();
+            Destroy(shooter);
         }
-    }
-    
 
+        foreach (GameObject fruit in GameObject.FindGameObjectsWithTag("fruit"))
+        {
+            fruit.GetComponent<DestroyFruit>().Die();
+            fruit.GetComponent<DestroyFruit>().died = true;
+        }
+
+        foreach (GameObject fruitP in GameObject.FindGameObjectsWithTag("fruitPieces"))
+        {
+            fruitP.GetComponent<DestroyFruit>().died = true;
+        }
+
+        setNextLevel();
+    }
+
+    private float waitTimeBewteenLevel = 6.0f;
+    private float waitBewteenLevel;
+    private bool levelWaiting = false;
+
+    private Vector3 lastFruitSpwan = new Vector3(7.7f, -6.97f, -2.77f);
     private void Update()
     {
         if (Input.GetKeyDown("space"))
@@ -101,10 +114,32 @@ public class GlobalLogic : MonoBehaviour
             score += 10;
         }
 
-        updateLevel();
+        if (score >= goals[(int)curLevel - 1])
+        {
+            levelWaiting = true;
+        }
+
+        if (levelWaiting)
+        {
+            waitBewteenLevel -= Time.deltaTime;
+
+            if(waitBewteenLevel < 0.8f * waitTimeBewteenLevel)
+            {
+                heartBeat.Play(0);
+                HandPulse(1.5f, 1f, 1f);
+            }
+
+            if (waitBewteenLevel < 0f)
+            {
+                updateLevel();
+                waitBewteenLevel = waitTimeBewteenLevel;
+                levelWaiting = false;
+            }
+        }
+        
 
         curWaitT -= Time.deltaTime;
-        if (curWaitT < 0)
+        if (curWaitT < 0 && !levelWaiting)
         {
             Debug.Log("RESET CENTER");
             randomSpawnCenter();
@@ -119,10 +154,18 @@ public class GlobalLogic : MonoBehaviour
                 go = Instantiate(bombShooter);
                 //go.transform.rotation = Quaternion.LookRotation(player.transform.position - go.transform.position);
             }
+            shootfruits shootFruit = go.GetComponent<shootfruits>();
+            
             Rigidbody tmp = go.GetComponent<Rigidbody>();
+            
+            if (waitTime < 3.5f && Vector3.Distance(lastFruitSpwan, spawnCenter) > 5f )
+            {
+                shootFruit.canPlay = true;
+            }
             go.transform.position = spawnCenter;
             go.transform.rotation = Quaternion.LookRotation(player.transform.position - go.transform.position);
             curWaitT = waitTime;
+            lastFruitSpwan = spawnCenter;
         }
         scoreUI.text = "Score : " + score.ToString();
         if (health < 0)

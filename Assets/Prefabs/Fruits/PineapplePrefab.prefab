@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2699208221881189440}
   - component: {fileID: 4022750678975799980}
   - component: {fileID: 4721394090864922519}
-  - component: {fileID: -7642178859422281172}
+  - component: {fileID: -2258837201756111052}
   m_Layer: 0
   m_Name: PineapplePrefab
   m_TagString: fruit
@@ -142,7 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutClip: {fileID: 8300000, guid: 6fa3aa4549d13704cbddda6091d80cae, type: 3}
---- !u!82 &-7642178859422281172
+  spwanAudio: {fileID: -2258837201756111052}
+--- !u!82 &-2258837201756111052
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,20 +153,20 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 539ea237144d69b409a81671dbfa4198, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b609839a907747e4d8bd4f88b2883c61, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.858
-  m_Pitch: 0.54
+  m_Volume: 1
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 0
+  Priority: 128
   DopplerLevel: 1
-  MinDistance: 0
-  MaxDistance: 600
+  MinDistance: 1
+  MaxDistance: 5
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

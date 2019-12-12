@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 958855018453282322, guid: e11db53624c4dbd4380f51b587532e6b, type: 3}
   - {fileID: 2906909676570641745, guid: 2e845219015432d40ae6cccc13008d3f, type: 3}
   fruitSpawnClip: {fileID: 8300000, guid: adb03aada6f95cf428a56e2fc4705efc, type: 3}
-  lifeTime: 18.5
+  lifeTime: 2
 --- !u!1 &694769644844465979
 GameObject:
   m_ObjectHideFlags: 0
