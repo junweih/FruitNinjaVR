@@ -62,7 +62,7 @@ public class BombScript : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(bombExplode, pos);
 
-        GameObject psObj = Instantiate(deathExplosion, pos - Vector3.up, Quaternion.identity) as GameObject;
+        GameObject psObj = Instantiate(deathExplosion, pos, Quaternion.identity) as GameObject;
         ParticleSystem ps = psObj.GetComponent<ParticleSystem>();
         float startTime = ps.main.startLifetime.constantMax;
         float duration = ps.main.duration;

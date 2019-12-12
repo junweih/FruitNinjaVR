@@ -2,6 +2,7 @@
 using System.Collections;
 using Valve.VR;
 
+
 [RequireComponent (typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
 public class CutMesh : MonoBehaviour {
@@ -13,7 +14,7 @@ public class CutMesh : MonoBehaviour {
     private AudioSource swordWipe;
 
     void Start () {
- 
+
         GameObject tmp = GameObject.Find("Global");
         if (tmp) {
             global = tmp.GetComponent<GlobalLogic>();
@@ -35,25 +36,20 @@ public class CutMesh : MonoBehaviour {
     private bool wiping = false;
     private void Update()
     {
-        if ((trackedObj.GetVelocity()).magnitude >= 1f && !wiping)
+        if ((trackedObj.GetVelocity()).magnitude >= 1.3f && !wiping)
         {
             wiping = true;
             int index = Random.Range(0, swordWipes.Length - 1);
             
-            
-            if(index!=0)
-            {
-                Debug.Log(index);
-                swordWipe.clip = swordWipes[index];
-                swordWipe.Play(0);
-            }
+            swordWipe.clip = swordWipes[index];
+            swordWipe.Play(0);
             
         }
 
         if(wiping)
         {
             wipeTimer += Time.deltaTime;
-            if (wipeTimer > 1f)
+            if (wipeTimer > 0.5f)
             {
                 wipeTimer = 0f;
                 wiping = false;
@@ -76,14 +72,6 @@ public class CutMesh : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         GameObject victim = collision.collider.gameObject;
-
-        if(trackedObj)
-        {
-            if((trackedObj.GetVelocity()).magnitude < 1f)
-            {
-                return;
-            }
-        }
 
         if (victim.CompareTag("bomb"))
         {
