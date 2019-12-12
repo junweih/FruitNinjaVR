@@ -24,11 +24,13 @@ public class HealthIconScipt : MonoBehaviour
         if(id > global.health && activated)
         {
             GetComponent<Renderer>().enabled = false;
+            activated = false;
             return;
         }
         if (id <= global.health && !activated)
         {
             GetComponent<Renderer>().enabled = true;
+            activated = true;
         }
     }
 }

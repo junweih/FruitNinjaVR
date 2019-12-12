@@ -50,14 +50,6 @@ public class CutMesh : MonoBehaviour {
     {
         GameObject victim = collision.collider.gameObject;
 
-        if(trackedObj)
-        {
-            if((trackedObj.GetVelocity()).magnitude < 0.5f)
-            {
-                return;
-            }
-        }
-
         if (victim.CompareTag("bomb"))
         {
             hapticStart = true;
@@ -69,6 +61,14 @@ public class CutMesh : MonoBehaviour {
             bs.Die(collision.contacts[0].point);
             Destroy(victim);
             return;
+        }
+
+        if (trackedObj)
+        {
+            if ((trackedObj.GetVelocity()).magnitude < 0.8f)
+            {
+                return;
+            }
         }
 
         if (!(victim.CompareTag("fruit") || victim.CompareTag("fruitPieces")))
