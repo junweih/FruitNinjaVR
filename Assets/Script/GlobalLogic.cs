@@ -83,9 +83,9 @@ public class GlobalLogic : MonoBehaviour
     void updateLevel()
     {      
         if (curLevel == 5.0f)
-            {
-                SceneManager.LoadScene("WinScene");
-            }
+        {
+            SceneManager.LoadScene("WinScene");
+        }
 
         setNextLevel();
     }

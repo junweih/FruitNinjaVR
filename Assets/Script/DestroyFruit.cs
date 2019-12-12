@@ -10,6 +10,7 @@ public class DestroyFruit : MonoBehaviour
     public bool useGravity;
     public bool sliced;
     public GameObject deathExplosion;
+    public Material capMat;
     private void Start()
     {
         t = 2.0f;
