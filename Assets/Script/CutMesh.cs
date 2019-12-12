@@ -78,6 +78,7 @@ public class CutMesh : MonoBehaviour {
         
         if (victim.CompareTag("fruit"))
         {
+
             for(int i = 0; i <100; i++)
             {
                 RightHandPulse(1.5f, 1f, 1f);
@@ -109,6 +110,11 @@ public class CutMesh : MonoBehaviour {
         {
             DestroyFruit df = pieces[0].AddComponent<DestroyFruit>();
             df.useGravity = true;
+            df.sliced = true;
+        } else
+        {
+            DestroyFruit df = pieces[0].GetComponent<DestroyFruit>();
+            df.sliced = true;
         }
 
         if (!pieces[1].GetComponent<Rigidbody>())
@@ -122,6 +128,11 @@ public class CutMesh : MonoBehaviour {
         {
             DestroyFruit df = pieces[1].AddComponent<DestroyFruit>();
             df.useGravity = true;
+            df.sliced = true;
+        } else
+        {
+            DestroyFruit df = pieces[1].GetComponent<DestroyFruit>();
+            df.sliced = true;
         }
 
         pieces[0].tag = "fruitPieces";
