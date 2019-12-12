@@ -8,13 +8,7 @@ public class CutMesh : MonoBehaviour {
 	public Material capMaterial;
     private GlobalLogic global;
     public SteamVR_Action_Vibration hapticAction;
-    private SteamVR_TrackedObject TrackedObject;
-
-
-    // a reference to the action
-    public SteamVR_Action_Boolean SphereOnOff;
-    // a reference to the hand
-
+    SteamVR_Behaviour_Pose trackedObj;
     private bool hapticStart = false;
 
 
@@ -24,9 +18,11 @@ public class CutMesh : MonoBehaviour {
         if (tmp) {
             global = tmp.GetComponent<GlobalLogic>();
         }
+
+        trackedObj = GetComponent<SteamVR_Behaviour_Pose>();
         //trackedobject = this.getcomponent<steamvr_trackedobject>();
         //print((int)(trackedobject.index));
-	}
+    }
 
     private void RightHandPulse(float duratiton, float frequencey, float amplitute)
     {
@@ -40,15 +36,13 @@ public class CutMesh : MonoBehaviour {
         {
             RightHandPulse(1.5f, 1f, 1f);
             timer += Time.deltaTime;
-            if (timer > 0.5f)
+            if (timer > 0.75f)
             {
                 timer = 0f;
                 hapticStart = false;
             }
         }
 
-        // Check if we have reached beyond 2 seconds.
-        // Subtracting two is more accurate over time than resetting to zero.
 
     }
 
@@ -56,22 +50,36 @@ public class CutMesh : MonoBehaviour {
     {
         GameObject victim = collision.collider.gameObject;
 
+<<<<<<< HEAD
+=======
+        if(trackedObj)
+        {
+            if((trackedObj.GetVelocity()).magnitude < 1f)
+            {
+                return;
+            }
+        }
+
+>>>>>>> origin/test
         if (victim.CompareTag("bomb"))
         {
-<<<<<<< HEAD
             hapticStart = true;
-            global.health--;
-=======
-            RightHandPulse(1, 150, 2000);
->>>>>>> 5fce00b8becba99dbd833e07d81a7ad4bf4bf15b
             BombScript bs = victim.GetComponent<BombScript>();
             if (bs.died)
                 return;
             
             global.health--;
-            bs.Die();
+            bs.Die(collision.contacts[0].point);
             Destroy(victim);
             return;
+        }
+
+        if (trackedObj)
+        {
+            if ((trackedObj.GetVelocity()).magnitude < 0.8f)
+            {
+                return;
+            }
         }
 
         if (!(victim.CompareTag("fruit") || victim.CompareTag("fruitPieces")))
@@ -81,7 +89,8 @@ public class CutMesh : MonoBehaviour {
         
         if (victim.CompareTag("fruit"))
         {
-            for(int i = 0; i <100; i++)
+
+            for(int i = 0; i < 100; i++)
             {
                 RightHandPulse(1.5f, 1f, 1f);
             }
@@ -112,6 +121,11 @@ public class CutMesh : MonoBehaviour {
         {
             DestroyFruit df = pieces[0].AddComponent<DestroyFruit>();
             df.useGravity = true;
+            df.sliced = true;
+        } else
+        {
+            DestroyFruit df = pieces[0].GetComponent<DestroyFruit>();
+            df.sliced = true;
         }
 
         if (!pieces[1].GetComponent<Rigidbody>())
@@ -125,6 +139,11 @@ public class CutMesh : MonoBehaviour {
         {
             DestroyFruit df = pieces[1].AddComponent<DestroyFruit>();
             df.useGravity = true;
+            df.sliced = true;
+        } else
+        {
+            DestroyFruit df = pieces[1].GetComponent<DestroyFruit>();
+            df.sliced = true;
         }
 
         pieces[0].tag = "fruitPieces";

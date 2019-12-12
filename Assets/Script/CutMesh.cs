@@ -10,7 +10,8 @@ public class CutMesh : MonoBehaviour {
     public SteamVR_Action_Vibration hapticAction;
     SteamVR_Behaviour_Pose trackedObj;
     private bool hapticStart = false;
-
+    public AudioClip[] swordWipes;
+    private AudioSource swordWipe;
 
     void Start () {
  
@@ -22,6 +23,7 @@ public class CutMesh : MonoBehaviour {
         trackedObj = GetComponent<SteamVR_Behaviour_Pose>();
         //trackedobject = this.getcomponent<steamvr_trackedobject>();
         //print((int)(trackedobject.index));
+        swordWipe = GetComponent<AudioSource>();
     }
 
     private void RightHandPulse(float duratiton, float frequencey, float amplitute)
@@ -30,8 +32,34 @@ public class CutMesh : MonoBehaviour {
     }
 
     private float timer = 0f;
+    private float wipeTimer = 0f;
+    private bool wiping = false;
     private void Update()
     {
+        if ((trackedObj.GetVelocity()).magnitude >= 1f && !wiping)
+        {
+            wiping = true;
+            int index = Random.Range(0, swordWipes.Length - 1);
+            
+            
+            if(index!=0)
+            {
+                Debug.Log(index);
+                swordWipe.clip = swordWipes[index];
+                swordWipe.Play(0);
+            }
+            
+        }
+
+        if(wiping)
+        {
+            wipeTimer += Time.deltaTime;
+            if (wipeTimer > 1f)
+            {
+                wipeTimer = 0f;
+                wiping = false;
+            }
+        }
         if (hapticStart)
         {
             RightHandPulse(1.5f, 1f, 1f);
