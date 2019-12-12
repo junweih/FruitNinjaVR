@@ -146,7 +146,6 @@ public class GlobalLogic : MonoBehaviour
         curWaitT -= Time.deltaTime;
         if (curWaitT < 0 && !levelWaiting)
         {
-            Debug.Log("RESET CENTER");
             randomSpawnCenter();
             float rng = Random.Range(0.0f, 1.0f);
             GameObject go;
@@ -156,9 +155,7 @@ public class GlobalLogic : MonoBehaviour
             } else
             {
                 go = Instantiate(bombShooter);
-                //go.transform.rotation = Quaternion.LookRotation(player.transform.position - go.transform.position);
             }
-            
             
             Rigidbody tmp = go.GetComponent<Rigidbody>();
             
