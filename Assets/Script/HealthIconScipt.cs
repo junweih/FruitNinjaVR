@@ -6,9 +6,11 @@ public class HealthIconScipt : MonoBehaviour
 {
     public int id;
     private GlobalLogic global;
+    bool activated;
     // Start is called before the first frame update
     void Start()
     {
+        activated = true;
         GameObject tmp = GameObject.Find("Global");
         if (tmp)
         {
@@ -19,15 +21,14 @@ public class HealthIconScipt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(id > global.health && this.gameObject.activeSelf)
+        if(id > global.health && activated)
         {
-            this.gameObject.SetActive(false);
+            GetComponent<Renderer>().enabled = false;
             return;
         }
-        if (id <= global.health)
+        if (id <= global.health && !activated)
         {
-            this.gameObject.SetActive(true);
-            return;
+            GetComponent<Renderer>().enabled = true;
         }
     }
 }

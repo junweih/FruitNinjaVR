@@ -7,7 +7,8 @@ public class CutMesh : MonoBehaviour {
 
 	public Material capMaterial;
     private GlobalLogic global;
-    public SteamVR_Action_Vibration hapticAction; 
+    public SteamVR_Action_Vibration hapticAction;
+    SteamVR_Behaviour_Pose trackedObj;
     private bool hapticStart = false;
 
 
@@ -17,9 +18,11 @@ public class CutMesh : MonoBehaviour {
         if (tmp) {
             global = tmp.GetComponent<GlobalLogic>();
         }
+
+        trackedObj = GetComponent<SteamVR_Behaviour_Pose>();
         //trackedobject = this.getcomponent<steamvr_trackedobject>();
         //print((int)(trackedobject.index));
-	}
+    }
 
     private void RightHandPulse(float duratiton, float frequencey, float amplitute)
     {
@@ -46,6 +49,14 @@ public class CutMesh : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         GameObject victim = collision.collider.gameObject;
+
+        if(trackedObj)
+        {
+            if((trackedObj.GetVelocity()).magnitude < 0.5f)
+            {
+                return;
+            }
+        }
 
         if (victim.CompareTag("bomb"))
         {
