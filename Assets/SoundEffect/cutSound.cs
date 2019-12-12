@@ -5,7 +5,12 @@ public class cutSound : MonoBehaviour
 {
     // Start is called before the first frame update
     public AudioClip cutClip;
-    private AudioSource spwanAudio;
+    public AudioSource spwanAudio;
+
+    //void Start()
+    //{
+    //    spwanAudio = this.gameObject.GetComponent<AudioSource>();
+    //}
     public void playClip()
     {
         spwanAudio.Pause();
@@ -16,10 +21,7 @@ public class cutSound : MonoBehaviour
     {
         spwanAudio.Play(0);
     }
-    void Start()
-    {
-        spwanAudio = GetComponent<AudioSource>();
-    }
+    
 
     // Update is called once per frame
     void Update()

@@ -7,10 +7,14 @@ public class shootfruits : MonoBehaviour
     public GameObject[] fruits;
     public AudioClip fruitSpawnClip;
     public float lifeTime;
+    private bool played;
+    public bool canPlay;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Spawn());
+        played = false;
+        canPlay = false;
     }
 
     // Update is called once per frame
@@ -29,9 +33,12 @@ public class shootfruits : MonoBehaviour
         {
             int index = Random.Range(0, fruits.Length);
             GameObject go = Instantiate(fruits[index]);
-           // cutSound sound = go.GetComponent<cutSound>();
-            //sound.playSpwan();
-
+            if(!played && canPlay)
+            {
+                played = true;
+                cutSound sound = go.GetComponent<cutSound>();
+                sound.playSpwan();
+            }
             Rigidbody tmp = go.GetComponent<Rigidbody>();
 
             go.transform.position = gameObject.transform.position;
@@ -54,7 +61,7 @@ public class shootfruits : MonoBehaviour
             
             go.GetComponent<DestroyFruit>().useGravity = true;
 
-            yield return new WaitForSeconds(6.0f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
