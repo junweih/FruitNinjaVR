@@ -4,8 +4,6 @@ using Valve.VR;
 
 [RequireComponent (typeof(Rigidbody))]
 public class CutMesh : MonoBehaviour {
-
-	public Material capMaterial;
     private GlobalLogic global;
     public SteamVR_Action_Vibration hapticAction;
     SteamVR_Behaviour_Pose trackedObj;
@@ -97,6 +95,7 @@ public class CutMesh : MonoBehaviour {
             }
         }
 
+        Material capMaterial = victim.GetComponent<DestroyFruit>().capMat;
         GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
 
         if (!pieces[0].GetComponent<Rigidbody>())
@@ -110,6 +109,7 @@ public class CutMesh : MonoBehaviour {
         {
             DestroyFruit df = pieces[0].AddComponent<DestroyFruit>();
             df.useGravity = true;
+            df.capMat = capMaterial;
             df.sliced = true;
         } else
         {
@@ -128,6 +128,7 @@ public class CutMesh : MonoBehaviour {
         {
             DestroyFruit df = pieces[1].AddComponent<DestroyFruit>();
             df.useGravity = true;
+            df.capMat = capMaterial;
             df.sliced = true;
         } else
         {

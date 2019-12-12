@@ -128,7 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   died: 0
   useGravity: 0
+  sliced: 0
   deathExplosion: {fileID: 100000, guid: acfa2df713f1e4345ba2d4515227e21a, type: 3}
+  capMat: {fileID: 2100000, guid: 343e05ecf55648b48a9cf7cf36d5c4c9, type: 2}
 --- !u!114 &3021274878253769379
 MonoBehaviour:
   m_ObjectHideFlags: 0
