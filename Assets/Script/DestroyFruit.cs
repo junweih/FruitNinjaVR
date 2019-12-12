@@ -37,7 +37,7 @@ public class DestroyFruit : MonoBehaviour
     }
     public void Die()
     {
-        GameObject psObj = Instantiate(deathExplosion, gameObject.transform.position, Quaternion.identity) as GameObject;
+        GameObject psObj = Instantiate(deathExplosion, gameObject.transform.position, Quaternion.LookRotation(Vector3.up, -Vector3.forward)) as GameObject;
         ParticleSystem ps = psObj.GetComponent<ParticleSystem>();
         float startTime = ps.main.startLifetime.constantMax;
         float duration = ps.main.duration;

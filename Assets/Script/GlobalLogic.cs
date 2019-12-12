@@ -44,7 +44,7 @@ public class GlobalLogic : MonoBehaviour
         health = 3;
         curLevel += 1.0f;
         fruitPossibility = 1.0f / (0.33f * curLevel + 0.67f);
-        waitTime = 13.5f / (0.5f * curLevel + 1.5f);
+        waitTime = 13.5f / (curLevel + 2.0f) + 1.5f;
         curWaitT = waitTime;
         levelUI.text = "Level " + ((int)curLevel).ToString() + " Goal: " + goals[(int)curLevel - 1].ToString();
     }

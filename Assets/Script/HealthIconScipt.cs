@@ -19,9 +19,15 @@ public class HealthIconScipt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(id > global.health)
+        if(id > global.health && this.gameObject.activeSelf)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
+            return;
+        }
+        if (id <= global.health && !this.gameObject.activeSelf)
+        {
+            this.gameObject.SetActive(true);
+            return;
         }
     }
 }
